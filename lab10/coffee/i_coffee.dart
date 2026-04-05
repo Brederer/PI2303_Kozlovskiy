@@ -3,4 +3,5 @@ abstract class ICoffee {
   int milk();
   int water();
   int cash();
+  String name();
 }
