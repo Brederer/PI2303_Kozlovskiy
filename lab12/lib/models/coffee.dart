@@ -21,20 +21,20 @@ class CoffeeRecipe {
 final coffeeRecipes = [
   CoffeeRecipe(
     type: CoffeeType.espresso,
-    name: 'Эспрессо',
-    icon: '☕',
+    name: 'espresso',
+    icon: '?',
     resources: Resources(coffeeBeans: 20, milk: 0, water: 50, cash: 100),
   ),
   CoffeeRecipe(
     type: CoffeeType.cappuccino,
-    name: 'Капучино',
-    icon: '🥛',
+    name: 'cappuccino',
+    icon: '??',
     resources: Resources(coffeeBeans: 20, milk: 100, water: 30, cash: 150),
   ),
   CoffeeRecipe(
     type: CoffeeType.americano,
-    name: 'Американо',
-    icon: '💧',
+    name: 'americano',
+    icon: '??',
     resources: Resources(coffeeBeans: 20, milk: 0, water: 100, cash: 120),
   ),
 ];

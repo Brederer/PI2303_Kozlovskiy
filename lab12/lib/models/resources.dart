@@ -21,9 +21,22 @@ class Resources {
   }
 
   String? firstMissingResource(Resources needed) {
-    if (coffeeBeans < needed.coffeeBeans) return 'кофейных зерен';
-    if (milk < needed.milk) return 'молока';
-    if (water < needed.water) return 'воды';
+    if (coffeeBeans < needed.coffeeBeans) return 'beans';
+    if (milk < needed.milk) return 'milk';
+    if (water < needed.water) return 'water';
+    return null;
+  }
+
+  String? firstMissingForDecrease({
+    required int coffeeBeans,
+    required int milk,
+    required int water,
+    required int cash,
+  }) {
+    if (this.coffeeBeans < coffeeBeans) return 'beans';
+    if (this.milk < milk) return 'milk';
+    if (this.water < water) return 'water';
+    if (this.cash < cash) return 'cash';
     return null;
   }
 
@@ -34,19 +47,27 @@ class Resources {
     cash += needed.cash;
   }
 
-  void refill({
+  void restock({
     required int coffeeBeans,
     required int milk,
     required int water,
+    required int cash,
   }) {
     this.coffeeBeans += coffeeBeans;
     this.milk += milk;
     this.water += water;
+    this.cash += cash;
   }
 
-  int takeCash() {
-    final amount = cash;
-    cash = 0;
-    return amount;
+  void decrease({
+    required int coffeeBeans,
+    required int milk,
+    required int water,
+    required int cash,
+  }) {
+    this.coffeeBeans -= coffeeBeans;
+    this.milk -= milk;
+    this.water -= water;
+    this.cash -= cash;
   }
 }

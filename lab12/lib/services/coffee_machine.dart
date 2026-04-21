@@ -20,7 +20,7 @@ class CoffeeMachine {
     if (missing != null) {
       return MachineResult(
         success: false,
-        message: 'Недостаточно $missing для приготовления ${recipe.name}.',
+        message: 'Not enough $missing for ${recipe.name}.',
       );
     }
 
@@ -29,20 +29,54 @@ class CoffeeMachine {
 
     return MachineResult(
       success: true,
-      message: '${recipe.name} готов. Цена: ${recipe.resources.cash}',
+      message: '${recipe.name} is ready. Price: ${recipe.resources.cash}',
     );
   }
 
-  void refill({
+  MachineResult changeResources({
+    required bool increase,
     required int coffeeBeans,
     required int milk,
     required int water,
+    required int cash,
   }) {
-    resources.refill(coffeeBeans: coffeeBeans, milk: milk, water: water);
-  }
+    if (increase) {
+      resources.restock(
+        coffeeBeans: coffeeBeans,
+        milk: milk,
+        water: water,
+        cash: cash,
+      );
+      return const MachineResult(
+        success: true,
+        message: 'Machine resources updated.',
+      );
+    }
 
-  int takeCash() {
-    return resources.takeCash();
+    final missing = resources.firstMissingForDecrease(
+      coffeeBeans: coffeeBeans,
+      milk: milk,
+      water: water,
+      cash: cash,
+    );
+
+    if (missing != null) {
+      return MachineResult(
+        success: false,
+        message: 'Not enough $missing to decrease resources.',
+      );
+    }
+
+    resources.decrease(
+      coffeeBeans: coffeeBeans,
+      milk: milk,
+      water: water,
+      cash: cash,
+    );
+    return const MachineResult(
+      success: true,
+      message: 'Machine resources decreased.',
+    );
   }
 
   Future<void> _prepare(CoffeeRecipe recipe) async {
